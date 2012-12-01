@@ -1,0 +1,73 @@
+Grant Damron (0466344)
+CS 6533 - Project 3
+
+=============================================================================
+This is a template description file.  Please fill in by replacing the []'s
+with relevant content (write a *single* sentence description for each method,
+bug, extension, etc...).  Then, remove any leftover []'s.
+=============================================================================
+
+Incomplete parts:
+-----------------
+  - none
+
+Bugs in code:
+-------------
+  - The main bug still occasionally collides with obstacles
+  - I'm not 100% sure it will never be launched off the screen
+
+Extensions/extra credit completed:
+----------------------------------
+  - bug cam
+  - shadows
+  - predator bug
+  - randomized placement of obstacles (but number of obstacles is heavily 
+    constrained)
+
+================================================================
+
+Methods completed or changed
+----------------------------
+
+Bug.java
+  - keyframe(): finds the two closest keyframes and then interpolate 
+    between them
+  - transform(): place bug in scene and make sure it's pointed in the right 
+    direction using atan2(dy, dx)
+  - draw(): added a flag to change color of bug's body if it is a 
+    predator
+
+Critter.java
+  - integrate(): implements Euler integration
+  - accelDrag(): add -k * velocity to acceleration
+  - accelAttract(): implements a+= direction * (k*dist^exp) and sets a 
+    maximum velocity
+
+Rock.java
+ - compute(): creates geometry of rock, calling computefractal()
+ - computeFractal(): a recursive implementation of midpoint displacement -- 
+   using a mix of nextDouble and nextGaussian for the offsets
+ - getRockScale(): returns scale of rock, which I use in detecting collision 
+   and attraction.
+ - displaceAndLock(): sets a vertex to the value of displacement and locks it
+
+Scene.java
+ - build(): randomly places up to two trees, up to 4 rocks, a main bug, and a 
+   predator bug in the scene
+ - process(): calls various critter methods to compute attraction point and 
+   keyframes and generates a new attraction point for the main bug every two
+   seconds
+ - draw(): added code to draw shadows for trees and bugs (but not rocks because 
+   it is too expensive)
+ - transformation(): added code to draw bug view
+ - getSafeLocation(): finds a location for an object or attraction point in the
+   scene that will not lead to a collision
+ - getNewLocation(): gets a random point in the scene
+ - collisionDetected(): determines if using a point will lead to a collision
+
+TreePart.java
+  - TreePart(): added recursive calls to constructor to create entire tree.
+  - draw(): draws either a branch/trunk or a maple-like leaf.
+
+WorldView.java
+  - projection(): adjusted frustrum in bug cam mode
